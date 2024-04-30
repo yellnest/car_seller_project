@@ -60,13 +60,13 @@ class Transmission(models.Model):
     class Meta:
         verbose_name = 'Коробка передач'
         verbose_name_plural = 'Коробки передач'
-        
+
 
 class CarModel(models.Model):
-    """Модель коробки передач
+    """Модель Модели авто :)
     """
-    model = models.CharField(max_length=50, unique=True)
-    slug = models.SlugField(max_length=30, unique=True)
+    model = models.CharField(max_length=50)  # Не ставлю unique потому что есть одинаковые модели, но разные бренды
+    slug = models.SlugField(max_length=30)  # Пример - Lincoln LS / Lexus LS и т.д.
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name='model_brand')
 
     def __str__(self):
@@ -93,10 +93,10 @@ class Car(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_cars')
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name='car_brands')
+    car_model = models.ForeignKey(CarModel, on_delete=models.CASCADE, related_name='car_model')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='car_categories')
     drive = models.ForeignKey(Drive, on_delete=models.CASCADE, related_name='car_drives')
     transmission = models.ForeignKey(Transmission, on_delete=models.CASCADE, related_name='car_transmissions')
-    car_model = models.ForeignKey(CarModel, on_delete=models.CASCADE, related_name='car_model')
 
     def __str__(self):
         return self.title

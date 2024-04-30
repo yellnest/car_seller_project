@@ -36,8 +36,8 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(CarModel)
 class CarModelAdmin(admin.ModelAdmin):
-    list_display = ('id', 'model')
-    list_display_links = ('id', 'model')
+    list_display = ('id', 'brand', 'model')
+    list_display_links = ('id', 'brand', 'model')
     search_fields = ('model',)
     prepopulated_fields = {'slug': ('model',)}
 

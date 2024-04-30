@@ -36,7 +36,7 @@ class CarViewSet(viewsets.ModelViewSet):
 
 
 class CarModelViewSet(viewsets.ModelViewSet):
-    queryset = CarModel.ojects.all()
+    queryset = CarModel.objects.all()
     serializer_class = CarModelSerializer
     lookup_field = 'slug'
 

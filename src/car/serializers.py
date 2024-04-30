@@ -29,7 +29,7 @@ class TransmissionSerializer(serializers.ModelSerializer):
 
 class CarModelSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Transmission
+        model = CarModel
         fields = ('id', 'model', 'slug', 'brand')
 
 
@@ -37,7 +37,7 @@ class CarSerializer(serializers.ModelSerializer):
     class Meta:
         model = Car
         fields = (
-            'id', 'slug', 'model', 'year', 'mileage', 'price', 'engine_size', 'description', 'published',
+            'id', 'title', 'slug', 'car_model', 'year', 'mileage', 'price', 'engine_size', 'description', 'published',
             'created_date', 'user', 'brand', 'category', 'drive', 'transmission'
         )
 
