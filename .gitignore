@@ -4,6 +4,7 @@
 __pycache__/
 
 configdb.sqlite3
+db.sqlite3
 local.py
 prod.py
 

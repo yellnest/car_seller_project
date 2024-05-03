@@ -37,9 +37,19 @@ class CarSerializer(serializers.ModelSerializer):
     class Meta:
         model = Car
         fields = (
-            'id', 'title', 'slug', 'car_model', 'year', 'mileage', 'price', 'engine_size', 'description', 'published',
-            'created_date', 'user', 'brand', 'category', 'drive', 'transmission'
+            'id', 'title', 'slug', 'year', 'mileage', 'price', 'engine_size', 'description', 'published',
+            'created_date', 'user', 'brand', 'car_model', 'category', 'drive', 'transmission'
         )
+
+    def to_representation(self, instance):
+        rep = super().to_representation(instance)
+        rep['user'] = instance.user.username  # Заменяем id пользователя на его имя
+        rep['brand'] = instance.brand.brand  # Заменяем id бренда на его название
+        rep['car_model'] = instance.car_model.model   # Заменяем id модели на её название
+        rep['category'] = instance.category.category  # Заменяем id категории на её название
+        rep['drive'] = instance.drive.drive  # Заменяем id привода на его название
+        rep['transmission'] = instance.transmission.transmission  # Заменяем id коробки передач на её название
+        return rep
 
 
 class CarImageSerializer(serializers.ModelSerializer):

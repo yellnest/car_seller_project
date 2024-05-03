@@ -35,7 +35,7 @@ class Drive(models.Model):
 
 
 class Category(models.Model):
-    """Модель категории автомобиля
+    """Модель типа кузова
     """
     category = models.CharField(max_length=20, unique=True)
     slug = models.SlugField(max_length=30, unique=True)
@@ -44,8 +44,8 @@ class Category(models.Model):
         return self.category
 
     class Meta:
-        verbose_name = 'Категория авто'
-        verbose_name_plural = 'Категории авто'
+        verbose_name = 'Тип кузова'
+        verbose_name_plural = 'Типы кузова'
 
 
 class Transmission(models.Model):
