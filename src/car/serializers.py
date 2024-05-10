@@ -6,7 +6,7 @@ from src.car.models import *
 class BrandSerializer(serializers.ModelSerializer):
     class Meta:
         model = Brand
-        fields = ('id', 'brand', 'slug')
+        fields = ('id', 'brand', 'slug', 'cars')
 
 
 class DriveSerializer(serializers.ModelSerializer):
@@ -32,6 +32,11 @@ class CarModelSerializer(serializers.ModelSerializer):
         model = CarModel
         fields = ('id', 'model', 'slug', 'brand')
 
+    def to_representation(self, instance):
+        rep = super().to_representation(instance)
+        rep['brand'] = instance.brand.brand
+        return rep
+
 
 class CarSerializer(serializers.ModelSerializer):
     class Meta:
@@ -45,7 +50,7 @@ class CarSerializer(serializers.ModelSerializer):
         rep = super().to_representation(instance)
         rep['user'] = instance.user.username  # Заменяем id пользователя на его имя
         rep['brand'] = instance.brand.brand  # Заменяем id бренда на его название
-        rep['car_model'] = instance.car_model.model   # Заменяем id модели на её название
+        rep['car_model'] = instance.car_model.model  # Заменяем id модели на её название
         rep['category'] = instance.category.category  # Заменяем id категории на её название
         rep['drive'] = instance.drive.drive  # Заменяем id привода на его название
         rep['transmission'] = instance.transmission.transmission  # Заменяем id коробки передач на её название
