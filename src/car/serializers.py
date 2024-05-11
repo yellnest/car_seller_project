@@ -4,9 +4,16 @@ from src.car.models import *
 
 
 class BrandSerializer(serializers.ModelSerializer):
+    car_brands = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name='car-detail',
+        lookup_field='slug'
+    )
+
     class Meta:
         model = Brand
-        fields = ('id', 'brand', 'slug', 'cars')
+        fields = ('id', 'brand', 'slug', 'car_brands')
 
 
 class DriveSerializer(serializers.ModelSerializer):
