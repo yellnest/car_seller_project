@@ -67,7 +67,7 @@ class CarModel(models.Model):
     """
     model = models.CharField(max_length=50)  # Не ставлю unique потому что есть одинаковые модели, но разные бренды
     slug = models.SlugField(max_length=30)  # Пример - Lincoln LS / Lexus LS и т.д.
-    brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name='model_brand')
+    brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name='brand_model')
 
     def __str__(self):
         return self.model
@@ -92,8 +92,8 @@ class Car(models.Model):
     published = models.BooleanField(default=False)
     created_date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_cars')
-    brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name='car_brands')
-    car_model = models.ForeignKey(CarModel, on_delete=models.CASCADE, related_name='car_model')
+    brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name='brand_cars')
+    car_model = models.ForeignKey(CarModel, on_delete=models.CASCADE, related_name='model_car')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='car_categories')
     drive = models.ForeignKey(Drive, on_delete=models.CASCADE, related_name='car_drives')
     transmission = models.ForeignKey(Transmission, on_delete=models.CASCADE, related_name='car_transmissions')

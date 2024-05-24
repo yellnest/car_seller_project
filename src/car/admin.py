@@ -45,10 +45,10 @@ class CarModelAdmin(admin.ModelAdmin):
 @admin.register(Car)
 class CarAdmin(admin.ModelAdmin):
     list_display = (
-        'id', 'brand', 'model', 'year', 'mileage', 'price', 'engine_size', 'created_date', 'category',
+        'id', 'brand', 'car_model', 'user', 'year', 'mileage', 'price', 'engine_size', 'created_date', 'category',
         'drive', 'transmission', 'published'
     )
-    list_display_links = ('id', 'model', 'brand')
+    list_display_links = ('id', 'car_model', 'brand')
 
     prepopulated_fields = {'slug': ('title',)}
     list_editable = ('published',)
