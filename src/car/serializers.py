@@ -46,11 +46,13 @@ class CarModelSerializer(serializers.ModelSerializer):
 
 
 class CarSerializer(serializers.ModelSerializer):
+    car_images = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+
     class Meta:
         model = Car
         fields = (
             'id', 'title', 'slug', 'year', 'mileage', 'price', 'engine_size', 'description', 'published',
-            'created_date', 'user', 'brand', 'car_model', 'category', 'drive', 'transmission'
+            'created_date', 'user', 'brand', 'car_model', 'category', 'drive', 'transmission', 'car_images'
         )
 
     def to_representation(self, instance):
@@ -62,6 +64,18 @@ class CarSerializer(serializers.ModelSerializer):
         rep['drive'] = instance.drive.drive  # Заменяем id привода на его название
         rep['transmission'] = instance.transmission.transmission  # Заменяем id коробки передач на её название
         return rep
+
+    def validate(self, attrs):
+        """
+        Проверка на то что выбранная модель соответствует марке
+        """
+        brand = attrs['brand']
+        car_model = attrs['car_model']
+
+        if not car_model.brand == brand:
+            raise serializers.ValidationError("Неверная комбинация марки и модели автомобиля.")
+
+        return attrs
 
 
 class CarImageSerializer(serializers.ModelSerializer):
