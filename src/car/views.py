@@ -30,7 +30,7 @@ class TransmissionViewSet(viewsets.ModelViewSet):
 
 
 class CarViewSet(viewsets.ModelViewSet):
-    queryset = Car.objects.all()
+    queryset = Car.objects.filter(published=True)
     serializer_class = CarSerializer
     lookup_field = 'slug'
 
