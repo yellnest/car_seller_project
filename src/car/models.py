@@ -13,7 +13,7 @@ class Brand(models.Model):
     slug = models.SlugField(max_length=60, unique=True)
 
     def __str__(self):
-        return f'{self.brand} {self.brand}'
+        return self.brand
 
     class Meta:
         verbose_name = 'Бренд авто'

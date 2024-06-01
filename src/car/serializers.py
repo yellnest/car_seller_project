@@ -11,9 +11,16 @@ class BrandSerializer(serializers.ModelSerializer):
         lookup_field='slug'
     )
 
+    brand_model = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name='carmodel-detail',
+        lookup_field='slug'
+    )
+
     class Meta:
         model = Brand
-        fields = ('id', 'brand', 'slug', 'brand_cars')
+        fields = ('id', 'brand', 'slug', 'brand_cars', 'brand_model')
 
 
 class DriveSerializer(serializers.ModelSerializer):
@@ -35,9 +42,16 @@ class TransmissionSerializer(serializers.ModelSerializer):
 
 
 class CarModelSerializer(serializers.ModelSerializer):
+    model_car = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name='car-detail',
+        lookup_field='slug'
+    )
+
     class Meta:
         model = CarModel
-        fields = ('id', 'model', 'slug', 'brand')
+        fields = ('id', 'model', 'slug', 'brand', 'model_car')
 
     def to_representation(self, instance):
         rep = super().to_representation(instance)
